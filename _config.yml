@@ -1,0 +1,21 @@
+title: The Big Trip
+description: Dan & Natalie's round the world adventure, Feb 2010 - Feb 2011
+baseurl: "/thebigtrip"
+url: "https://roooms.github.io"
+
+markdown: kramdown
+
+permalink: /:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - convert.py

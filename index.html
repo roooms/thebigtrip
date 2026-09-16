@@ -1,0 +1,14 @@
+---
+layout: default
+title: The Big Trip
+subtitle: All posts, in order
+---
+<ul class='posts'>
+{% assign posts = site.posts | sort: 'date' %}
+{% for post in posts %}
+<li>
+<a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+<div class='post_info'>{{ post.date | date: "%B %-d %Y, %-l:%M %p" }} by {{ post.author }}</div>
+</li>
+{% endfor %}
+</ul>

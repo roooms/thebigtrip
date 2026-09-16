@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page.title | default: site.title }}</title>
+<link href='{{ "/assets/css/exports.css" | relative_url }}' rel='stylesheet'>
+</head>
+<body>
+<div id='wrap'>
+<div id='header'>
+<h1><a href='{{ "/" | relative_url }}'>The Big Trip</a></h1>
+<h2>{{ page.subtitle | default: site.description }}</h2>
+</div>
+<div id='content'>
+{{ content }}
+</div>
+</div>
+</body>
+</html>

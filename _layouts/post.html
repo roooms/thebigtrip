@@ -1,0 +1,47 @@
+---
+layout: default
+---
+{% assign chron_previous = page.previous %}
+{% assign chron_next = page.next %}
+<div id='nav'>
+{% if chron_previous %}<a href="{{ chron_previous.url | relative_url }}">&laquo; Previous: {{ chron_previous.title }}</a>{% endif %}
+&nbsp;
+<a href="{{ "/" | relative_url }}">Index</a>
+&nbsp;
+{% if chron_next %}<a href="{{ chron_next.url | relative_url }}">Next: {{ chron_next.title }} &raquo;</a>{% endif %}
+</div>
+<div class='post'>
+<div class='post_header'>
+<h3>{{ page.title }}</h3>
+<div class='post_info'>
+<span class='post_time'>{{ page.date | date: "%B %-d %Y, %-l:%M %p" }}</span>
+<span class='author'>&nbsp;by {{ page.author }}</span>
+</div>
+</div>
+<div class='post_body'>
+{{ content }}
+</div>
+{% if page.responses %}
+<div class='post_responses'>
+<h4>{{ page.responses | size }} response{% if page.responses.size != 1 %}s{% endif %}</h4>
+<ul class='post_responses list'>
+{% for r in page.responses %}
+<li class='response clearfix'>
+<div class='response_header'>
+<div class='response_time'>{{ r.time }}</div>
+<div class='response_name'>{{ r.name }} responded:</div>
+</div>
+<div class='response_body'>{{ r.body }}</div>
+</li>
+{% endfor %}
+</ul>
+</div>
+{% endif %}
+</div>
+<div id='nav' class='nav_bottom'>
+{% if chron_previous %}<a href="{{ chron_previous.url | relative_url }}">&laquo; Previous: {{ chron_previous.title }}</a>{% endif %}
+&nbsp;
+<a href="{{ "/" | relative_url }}">Index</a>
+&nbsp;
+{% if chron_next %}<a href="{{ chron_next.url | relative_url }}">Next: {{ chron_next.title }} &raquo;</a>{% endif %}
+</div>
