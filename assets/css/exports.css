@@ -52,7 +52,7 @@ img {
 #header {
   text-align: center;
   margin-bottom: 3rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 2.5rem;
   border-bottom: 1px solid var(--color-border);
 }
 
@@ -70,7 +70,99 @@ img {
   font-size: 1.1rem;
   font-weight: 400;
   color: var(--color-muted);
-  margin-top: 0.5rem;
+  margin-top: 1.6rem;
+}
+
+/*
+  "356 ^365" tagline correction, styled to look like a hand-made
+  proofreading edit rather than plain typeset text.
+
+  The <s> tag keeps its native `text-decoration: line-through`, so the
+  strikethrough is still present with CSS stripped entirely (reader
+  mode, screen readers, view-source, etc). The ::before/::after overlay
+  below is a *decorative* addition on top of that, turning the native
+  straight line into a hand-scribbled one (two overlapping wobbly
+  strokes at different tilts, rather than a single clean line).
+
+  The caret ("^") sits below the line, pointing up into it to mark the
+  insertion point, matching how corrections are commonly marked by
+  hand in edited text. The replacement word ("356") is written smaller,
+  above the line, near where there's room for it.
+
+  .correction-wrap wraps just the <s>365</s> word (not the whole
+  tagline) so the note and caret are always anchored directly to that
+  word regardless of surrounding text or viewport width, instead of
+  being positioned with fixed/guessed offsets against the full string.
+
+  Tunable knobs:
+    - the SVG <path> "d" coordinates on .hand-strike::before/::after
+      control the wobble/shape of each scribble pass
+    - --scribble-color: line/note/caret color
+    - rotate(...) on .hand-strike::before/::after: tilt of each pass
+    - font-size on .correction-note / .correction-caret: relative sizes
+    - rotate(-5deg) on .correction-note: how "scrawled" it looks
+*/
+.correction-wrap {
+  --scribble-color: #c0202c;
+  position: relative;
+  display: inline-block;
+}
+
+.hand-strike {
+  position: relative;
+  display: inline-block;
+}
+
+.hand-strike::before,
+.hand-strike::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  top: 48%;
+  height: 0.75em;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  pointer-events: none;
+}
+
+.hand-strike::before {
+  transform: translateY(-50%) rotate(-4deg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'%3E%3Cpath d='M2 14 C 10 4, 18 17, 26 7 C 34 1, 42 16, 50 8 C 58 2, 66 15, 74 6 C 82 1, 90 16, 98 7 C 104 3, 112 14, 118 9' fill='none' stroke='%23c0202c' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.hand-strike::after {
+  transform: translateY(-50%) rotate(2deg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'%3E%3Cpath d='M3 8 C 12 17, 20 3, 30 12 C 40 19, 48 4, 58 11 C 68 18, 76 3, 86 12 C 94 18, 102 5, 110 11 C 114 14, 117 10, 119 12' fill='none' stroke='%23c0202c' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.correction-note {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  transform: translateX(-50%) rotate(-5deg);
+  margin-bottom: 0.05em;
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: var(--scribble-color);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.correction-caret {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  transform: translateX(-50%);
+  margin-top: 0.05em;
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--scribble-color);
+  pointer-events: none;
 }
 
 #content {
